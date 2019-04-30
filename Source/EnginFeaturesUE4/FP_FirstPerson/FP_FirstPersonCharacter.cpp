@@ -18,7 +18,7 @@ DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 AFP_FirstPersonCharacter::AFP_FirstPersonCharacter()
 {
 	// Set size for collision capsule
-	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
+	GetCapsuleComponent()->InitCapsuleSize(80.f, 96.0f);
 
 	// Set our turn rates for input
 	BaseTurnRate = 45.f;
