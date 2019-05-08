@@ -4,7 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "BehaviorTree/BTTaskNode.h"
+#include "AIController.h"
+#include "Public/CPatrollingGuard.h" // TODO remove coupling, add ActorComponent patrolPoints
 #include "CChooseNextWayPoint.generated.h"
+
 
 /**
  * 
@@ -19,6 +22,9 @@ class ENGINFEATURESUE4_API UCChooseNextWayPoint : public UBTTaskNode
 	protected:
 		UPROPERTY(EditAnywhere, Category = "Blackboard")
 		struct FBlackboardKeySelector IndexKey;
+
+		UPROPERTY(EditAnywhere, Category = "Blackboard")
+		struct FBlackboardKeySelector WaypointKey;
 
 
 };
