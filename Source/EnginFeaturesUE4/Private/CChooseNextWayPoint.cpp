@@ -6,15 +6,26 @@
 
 EBTNodeResult::Type UCChooseNextWayPoint::ExecuteTask(UBehaviorTreeComponent & OwnerComp, uint8 * NodeMemory)
 {
-	//UE_LOG(LogTemp, Warning, TEXT("AI in C++ - yay!"));
+	
 
-	// TODO protect against empty patrol routes
 	// Get the patrol points
 	auto AIController = OwnerComp.GetAIOwner();
 	auto ControlledPawn = AIController->GetPawn();
 	auto PatrollingGuard = Cast<ACPatrollingGuard>(ControlledPawn);
+	if (!ensure(PatrollingGuard)) {
+		return EBTNodeResult::Failed;
+	}
+
 	auto PatrolPoints = PatrollingGuard->GetPatrolPoints();
 
+	// Get the patrol points
+	if (PatrolPoints.Num() == 0)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("A guard is missing patrol points"));
+		return EBTNodeResult::Failed;
+	}
+
+	//Set next wayPoint
 	UBlackboardComponent *BlackboardComp = OwnerComp.GetBlackboardComponent();
 	int32 Index = BlackboardComp->GetValueAsInt(IndexKey.SelectedKeyName);
 	//UE_LOG(LogTemp, Warning, TEXT("Waypoint index: %i"), Index);
