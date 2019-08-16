@@ -11,12 +11,13 @@ EBTNodeResult::Type UCChooseNextWayPoint::ExecuteTask(UBehaviorTreeComponent & O
 	// Get the patrol points
 	auto AIController = OwnerComp.GetAIOwner();
 	auto ControlledPawn = AIController->GetPawn();
-	auto PatrollingGuard = Cast<ACPatrollingGuard>(ControlledPawn);
-	if (!ensure(PatrollingGuard)) {
+	auto PatrolRoute = ControlledPawn->FindComponentByClass<UPatrolRoute>();
+	
+	if (!ensure(PatrolRoute)) {
 		return EBTNodeResult::Failed;
 	}
 
-	auto PatrolPoints = PatrollingGuard->GetPatrolPoints();
+	auto PatrolPoints = PatrolRoute->GetPatrolPoints();
 
 	// Get the patrol points
 	if (PatrolPoints.Num() == 0)
